@@ -11,7 +11,7 @@
   </resources>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="ContactManager.jar" size="23823" download="eager" />
+    <jar href="ContactManager.jar" size="24812" download="eager" />
   </resources>
 <security>
   <all-permissions/>
@@ -19,6 +19,6 @@
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="ContactManager" >
     <param name="requiredFXVersion" value="2.2+"/>
   </applet-desc>
-  <jfx:javafx-desc  width="800" height="600" main-class="contactmanager.ContactManager"  name="ContactManager" />
+  <jfx:javafx-desc  width="800" height="600" main-class="contactmanager.MainApp"  name="ContactManager" />
   <update check="always"/>
 </jnlp>

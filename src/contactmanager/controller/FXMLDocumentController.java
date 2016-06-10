@@ -6,7 +6,7 @@
 
 package contactmanager.controller;
 
-import contactmanager.ContactManager;
+import contactmanager.MainApp;
 import contactmanager.model.Person;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -65,7 +65,7 @@ public class FXMLDocumentController implements Initializable {
     private Button deleteButton;
 
     // Reference to the main application
-    private ContactManager mainApp;
+    private MainApp mainApp;
     @FXML
     private TableColumn<Person, String> firstNameColumn;
     @FXML
@@ -91,7 +91,7 @@ public class FXMLDocumentController implements Initializable {
      * 
      * @param mainApp
      */
-    public void setMainApp(ContactManager mainApp) {
+    public void setMainApp(MainApp mainApp) {
         this.mainApp = mainApp;
 
         // Add observable list data to the table
