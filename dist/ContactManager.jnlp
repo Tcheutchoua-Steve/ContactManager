@@ -11,7 +11,8 @@
   </resources>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="ContactManager.jar" size="24812" download="eager" />
+    <jar href="ContactManager.jar" size="34954" download="eager" />
+    <jar href="lib/javafx-dialogs-0.0.3.jar" size="124637" download="eager" />
   </resources>
 <security>
   <all-permissions/>
