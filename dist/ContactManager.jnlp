@@ -11,8 +11,11 @@
   </resources>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="ContactManager.jar" size="34954" download="eager" />
-    <jar href="lib/javafx-dialogs-0.0.3.jar" size="124637" download="eager" />
+    <jar href="ContactManager.jar" size="39721" download="eager" />
+    <jar href="lib/javafx-dialogs-0.0.3.jar" size="124634" download="eager" />
+    <jar href="lib/xmlpull-1.1.3.1.jar" size="8948" download="eager" />
+    <jar href="lib/xpp3_min-1.1.4c.jar" size="26860" download="eager" />
+    <jar href="lib/xstream-1.4.3.jar" size="526069" download="eager" />
   </resources>
 <security>
   <all-permissions/>

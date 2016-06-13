@@ -5,17 +5,22 @@
  */
 package contactmanager;
 
+import com.thoughtworks.xstream.XStream;
 import contactmanager.controller.PersonEditDialogController;
 import contactmanager.controller.PersonOverviewController;
+import contactmanager.controller.RootLayoutController;
 import contactmanager.model.Person;
+import contactmanager.util.FileUtil;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.prefs.Preferences;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Dialogs;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -68,13 +73,24 @@ public class MainApp extends Application {
             rootLayout = (BorderPane) loader.load();
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
+            
+            // Give the controller access to the main app 
+            RootLayoutController controller = loader.getController();
+            controller.setMainApp(this);
+            
             primaryStage.show();
         } catch (IOException e) {
             // Exception gets thrown if the fxml file could not be loaded
             e.printStackTrace();
         }
-
+        
         showPersonOverview();
+        
+        //Try to load last opened person file 
+        File file = getPersonFilePath();
+        if(file != null){
+            loadPersonDataFromFile(file);
+        }
     }
 
     public void showPersonOverview() {
@@ -184,4 +200,55 @@ public class MainApp extends Application {
             primaryStage.setTitle("AddressApp");
         }
     }
+    
+    /**
+ * Loads person data from the specified file. The current person data will
+ * be replaced.
+ * 
+ * @param file
+ */
+@SuppressWarnings("unchecked")
+public void loadPersonDataFromFile(File file) {
+  XStream xstream = new XStream();
+  xstream.alias("person", Person.class);
+
+  try {
+    String xml = FileUtil.readFile(file);
+
+    ArrayList<Person> personList = (ArrayList<Person>) xstream.fromXML(xml);
+
+    personData.clear();
+    personData.addAll(personList);
+
+    setPersonFilePath(file);
+  } catch (Exception e) { // catches ANY exception
+    Dialogs.showErrorDialog(primaryStage,
+        "Could not load data from file:\n" + file.getPath(),
+        "Could not load data", "Error", e);
+  }
+}
+
+/**
+ * Saves the current person data to the specified file.
+ * 
+ * @param file
+ */
+public void savePersonDataToFile(File file) {
+  XStream xstream = new XStream();
+  xstream.alias("person", Person.class);
+
+  // Convert ObservableList to a normal ArrayList
+  ArrayList<Person> personList = new ArrayList<>(personData);
+
+  String xml = xstream.toXML(personList);
+  try {
+    FileUtil.saveFile(xml, file);
+
+    setPersonFilePath(file);
+  } catch (Exception e) { // catches ANY exception
+    Dialogs.showErrorDialog(primaryStage,
+        "Could not save data to file:\n" + file.getPath(),
+        "Could not save data", "Error", e);
+  }
+}
 }
